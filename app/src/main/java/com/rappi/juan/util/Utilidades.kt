@@ -14,9 +14,12 @@ import com.rappi.juan.juanrappimovietest.R
 import com.rappi.juan.juanrappimovietest.SearchActivity
 import com.rappi.juan.juanrappimovietest.TopratedActivity
 import com.rappi.juan.juanrappimovietest.UpcomingActivity
+import java.io.IOException
 
 class Utilidades {
+
     companion object {
+
         fun onNavigationItemSelected(actividad: Activity, item: MenuItem): Boolean {
             val id = item.itemId
 
@@ -44,6 +47,23 @@ class Utilidades {
             val drawer = actividad.findViewById<View>(R.id.drawer_layout) as DrawerLayout
             drawer.closeDrawer(GravityCompat.START)
             return true
+        }
+
+        fun isConnected(context: Context): Boolean {
+            return true
+        }
+
+        fun setObjectCache(obj: Any, name: String, activity: Activity): Boolean {
+            return true;
+        }
+
+        fun getObjectCache(name: String, activity: Activity): Any? {
+            return null;
+        }
+
+        @Throws(IOException::class)
+        fun downloadFile(fileURL: String, saveDir: String) {
+
         }
     }
 }
