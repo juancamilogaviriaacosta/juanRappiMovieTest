@@ -53,6 +53,13 @@ class MovieAdapter(private val actividad: Activity, private val sList: List<Resu
         vh.nombre.text = sList[position].title
         vh.director.text = sList[position].original_language
         vh.fecha.text = sList[position].release_date
+
+        view!!.setOnClickListener {
+            val intent = Intent(actividad, MovieDetailActivity::class.java)
+            intent.putExtra("selectedMovie", sList[position])
+            actividad.startActivity(intent)
+        }
+
         return view
     }
 }
