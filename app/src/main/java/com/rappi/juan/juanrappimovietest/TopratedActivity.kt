@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.rappi.juan.network.MovieDBThread
 import com.rappi.juan.util.Utilidades
 import kotlinx.android.synthetic.main.activity_toprated.*
 import kotlinx.android.synthetic.main.app_bar_toprated.*
@@ -25,6 +26,9 @@ class TopratedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val movieDBThread = MovieDBThread(this, "https://api.themoviedb.org/3/movie/top_rated?language=en-US", "toprated")
+        movieDBThread.execute()
     }
 
     override fun onBackPressed() {

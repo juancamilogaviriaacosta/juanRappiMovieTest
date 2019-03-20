@@ -8,6 +8,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
+import com.rappi.juan.network.MovieDBThread
 import com.rappi.juan.util.Utilidades
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.app_bar_search.*
@@ -26,6 +29,12 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val button_search1 = findViewById<View>(R.id.button_search1) as EditText
+        button_search1.setOnClickListener {
+            val movieDBThread = MovieDBThread(this@SearchActivity, "https://api.themoviedb.org/3/search/movie?language=en-US&query=" + button_search1.text, "search")
+            movieDBThread.execute()
+        }
     }
 
     override fun onBackPressed() {

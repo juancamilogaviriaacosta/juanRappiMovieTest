@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.rappi.juan.network.MovieDBThread
 import com.rappi.juan.util.Utilidades
 import kotlinx.android.synthetic.main.activity_upcoming.*
 import kotlinx.android.synthetic.main.app_bar_upcoming.*
@@ -25,6 +26,9 @@ class UpcomingActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val movieDBThread = MovieDBThread(this, "https://api.themoviedb.org/3/movie/upcoming?language=en-US", "upcoming")
+        movieDBThread.execute()
     }
 
     override fun onBackPressed() {
