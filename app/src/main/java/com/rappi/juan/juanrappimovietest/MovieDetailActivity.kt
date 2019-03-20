@@ -20,8 +20,10 @@ class MovieDetailActivity : AppCompatActivity() {
 
         selectedMovie = intent.extras!!.getSerializable("selectedMovie") as Result
 
-        val dit = DownloadImageThread(this, selectedMovie!!.poster_path!!)
-        dit.execute()
+        if(selectedMovie!!.poster_path != null) {
+            val dit = DownloadImageThread(this, selectedMovie!!.poster_path!!)
+            dit.execute()
+        }
 
         (findViewById<View>(R.id.title1) as TextView).text = selectedMovie!!.title
         (findViewById<View>(R.id.popularity1) as TextView).text = selectedMovie!!.popularity.toString()
