@@ -14,7 +14,10 @@ import com.rappi.juan.juanrappimovietest.R
 import com.rappi.juan.juanrappimovietest.SearchActivity
 import com.rappi.juan.juanrappimovietest.TopratedActivity
 import com.rappi.juan.juanrappimovietest.UpcomingActivity
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.net.URL
 
 class Utilidades {
 
@@ -63,7 +66,12 @@ class Utilidades {
 
         @Throws(IOException::class)
         fun downloadFile(fileURL: String, saveDir: String) {
-
+            var fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1, fileURL.length)
+            URL(fileURL).openStream().use { input ->
+                FileOutputStream(File(saveDir + File.separator + fileName)).use { output ->
+                    input.copyTo(output)
+                }
+            }
         }
     }
 }
