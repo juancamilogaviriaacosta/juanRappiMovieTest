@@ -15,65 +15,47 @@ import com.rappi.juan.models.Result
 
 import java.io.File
 
-class MovieAdapter(private val actividad: Activity, private val lista: List<Result>) : BaseAdapter() {
+class MovieAdapter(private val actividad: Activity, private val sList: List<Result>) : BaseAdapter() {
+
+    private val mInflator: LayoutInflater
 
     init {
-        inflater = actividad.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        this.mInflator = LayoutInflater.from(actividad)
     }
 
     override fun getCount(): Int {
-        return lista.size
+        return sList.size
     }
 
     override fun getItem(position: Int): Any {
-        return lista[position]
+        return sList[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return java.lang.Long.valueOf(lista[position].id!!.toLong())
+        return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View, parent: ViewGroup): View {
-        val holder: Holder
-
-        val temp = lista[position]
-        var row: View? = convertView
-        if (row == null) {
-            row = inflater.inflate(R.layout.movie_row, null)
-            holder = Holder()
-            holder.imagen = row!!.findViewById<View>(R.id.movieImage) as ImageView
-            holder.nombre = row.findViewById<View>(R.id.movieName) as TextView
-            holder.director = row.findViewById<View>(R.id.movieDirector) as TextView
-            holder.fecha = row.findViewById<View>(R.id.movieDate) as TextView
-            row.tag = holder
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        val view: View?
+        val vh: ListRowHolder
+        if (convertView == null) {
+            view = this.mInflator.inflate(R.layout.movie_row, parent, false)
+            vh = ListRowHolder(view)
+            view.tag = vh
         } else {
-            holder = row.tag as Holder
+            view = convertView
+            vh = view.tag as ListRowHolder
         }
 
-        val imageNameWithPath = actividad.applicationContext.filesDir.path + '/'.toString() + temp.poster_path
-        val img = File(imageNameWithPath)
-        holder.imagen!!.setImageBitmap(BitmapFactory.decodeFile(img.toString()))
-
-        holder.nombre!!.text = temp.title
-        holder.director!!.text = temp.original_language
-        holder.fecha!!.text = temp.release_date
-
-        row.setOnClickListener {
-            val intent = Intent(actividad, MovieDetailActivity::class.java)
-            intent.putExtra("selectedMovie", temp)
-            actividad.startActivity(intent)
-        }
-        return row
+        vh.label.text = sList[position].title
+        return view
     }
+}
 
-    inner class Holder {
-        internal var imagen: ImageView? = null
-        internal var nombre: TextView? = null
-        internal var director: TextView? = null
-        internal var fecha: TextView? = null
-    }
+class ListRowHolder(row: View?) {
+    public val label: TextView
 
-    companion object {
-        private lateinit var inflater: LayoutInflater
+    init {
+        this.label = row?.findViewById(R.id.movieName) as TextView
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.rappi.juan.network.MovieDBThread
 import com.rappi.juan.util.Utilidades
 import kotlinx.android.synthetic.main.activity_popular.*
 import kotlinx.android.synthetic.main.app_bar_popular.*
@@ -25,6 +26,9 @@ class PopularActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val movieDBThread = MovieDBThread(this, "https://api.themoviedb.org/3/movie/popular?language=en-US", "popular")
+        movieDBThread.execute()
     }
 
     override fun onBackPressed() {

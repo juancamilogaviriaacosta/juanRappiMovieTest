@@ -35,6 +35,7 @@ class MovieDBThread(private val activity: Activity, private val url: String, pri
 
                 if (connection.responseCode == 200) {
                     val bufferedReader = BufferedReader(InputStreamReader(connection.inputStream))
+
                     movieDBResult = Gson().fromJson<MovieDBResult>(bufferedReader, MovieDBResult::class.java)
                     Utilidades.setObjectCache(movieDBResult!!, type, activity)
 
