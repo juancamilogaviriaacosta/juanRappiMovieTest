@@ -47,15 +47,27 @@ class MovieAdapter(private val actividad: Activity, private val sList: List<Resu
             vh = view.tag as ListRowHolder
         }
 
-        vh.label.text = sList[position].title
+        val imageNameWithPath = actividad.applicationContext.filesDir.path + '/'.toString() + sList[position].poster_path
+        val img = File(imageNameWithPath)
+        vh.imagen!!.setImageBitmap(BitmapFactory.decodeFile(img.toString()))
+        vh.nombre.text = sList[position].title
+        vh.director.text = sList[position].original_language
+        vh.fecha.text = sList[position].release_date
         return view
     }
 }
 
 class ListRowHolder(row: View?) {
-    public val label: TextView
+    public val imagen: ImageView
+    public val nombre: TextView
+    public val director: TextView
+    public val fecha: TextView
 
     init {
-        this.label = row?.findViewById(R.id.movieName) as TextView
+        this.imagen = row?.findViewById(R.id.movieImage) as ImageView
+        this.nombre = row?.findViewById(R.id.movieName) as TextView
+        this.director = row?.findViewById(R.id.movieDirector) as TextView
+        this.fecha = row?.findViewById(R.id.movieDate) as TextView
+
     }
 }
