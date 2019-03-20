@@ -18,7 +18,7 @@ Modelos: Representación y mapeo POJO de los objetos devueltos por el web servic
 - MovieDBResult
 - Result
 
-NEtwork: Hilos que se encargan de hacer las peticiones al web service y actualizar las vista
+Network: Hilos que se encargan de hacer las peticiones al web service y actualizar las vista
 - MovieDBThread
 - DownloadImageThread
 
